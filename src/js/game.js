@@ -28,7 +28,7 @@ let questions=[
         answer:1,
     },
     {
-        question:' Which is the Luffy\'s devil fruit',
+        question:' Which is the Luffy\'s devil fruit ?',
         choice1:'Gomu Gomu no Mi',
         choice2:'Hito Hito no Mi: Nika model',
         choice3:'Bara Bara no Mi',
@@ -36,12 +36,12 @@ let questions=[
         answer:2,
     },
     {
-        question:' What is 2+2',
-        choice1:'2',
-        choice2:'4',
-        choice3:'21',
-        choice4:'17',
-        answer:2,
+        question:' Who is USA president ?',
+        choice1:'Lord Petrosky',
+        choice2:'Marshall D. Teach',
+        choice3:'Joe Biden',
+        choice4:'Tony Stark',
+        answer:3,
     }
 ]
 
@@ -59,7 +59,7 @@ getNewQuestion = () =>{
     if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score);
 
-        return window.location('/end.html');
+        return window.location.assign('../end.html');
     }
     questionCounter++;
     progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`;
@@ -74,5 +74,39 @@ getNewQuestion = () =>{
         choice.innerText = currentQuestion['choice'+ number];
     })
 
+    availableQuestions.splice(questionsIndex, 1);
+    acceptingAnswers = true;
 
 }
+
+choices.forEach(choice => {
+    choice.addEventListener('click', e =>{
+        if(!acceptingAnswers) return
+
+        acceptingAnswers = false;
+        const selectedChoice = e.target;
+        const selectedAnswer = selectedChoice.dataset['number'];
+
+        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' :
+        'incorrect';
+
+        if(classToApply === 'correct'){
+            incrementScore(SC0RE_POINTS);
+        }
+
+        selectedChoice.parentElement.classList.add(classToApply);
+
+        setTimeout(()=>{
+            selectedChoice.parentElement.classList.remove(classToApply);
+            getNewQuestion()
+        }, 1000);
+    })
+})
+
+incrementScore = num =>{
+    score += num;
+    scoreText.innerText = score;
+
+}
+
+startGame();

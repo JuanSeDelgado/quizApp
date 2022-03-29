@@ -1,0 +1,21 @@
+body{
+    color: #fff;
+}
+
+#highScoresList{
+    list-style: none;
+    margin-bottom: 4rem;
+}
+
+.high-score{
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+
+#deleteHighScores{
+    background: linear-gradient(90deg, rgb(223, 54, 54)0%, rgb(238, 7, 7)100%); 
+}
+
+#deleteHighScores:hover{
+    box-shadow: 0 0.4rem 1.4rem 0 rgba(148, 16, 16, 0.5);
+}
